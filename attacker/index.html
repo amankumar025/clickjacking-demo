@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Free Prize_Attacker</title>
+  <link rel="stylesheet" href="../style.css">
+  <style>
+    iframe {
+      position: absolute;
+      top: 180px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 320px;
+      height: 220px;
+      border: none;
+      z-index: 2;
+      opacity: 1;
+    }
+    .overlay {
+      position: absolute;
+      top: 210px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 150px;
+      height: 50px;
+      background-color: white;
+      opacity: 0.8;
+      z-index: 3;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Claim Your Free Prize!</h1>
+    <p>Click the button below to get access to the prize.</p>
+    <div class="overlay"></div>
+    <iframe src="../protected/index.html"></iframe>
+
+    <div class="nav">
+      <a href="../target/index.html">Go to Vulnerable Page</a> |
+      <a href="../protected/index.html">Go to Protected Page</a>
+    </div>
+  </div>
+</body>
+</html>

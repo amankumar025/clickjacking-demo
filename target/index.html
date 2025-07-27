@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Bank_Vulnerable</title>
+  <link rel="stylesheet" href="../style.css">
+</head>
+<body>
+  <div class="container">
+    <h1>Bank (Vulnerable Page)</h1>
+    <p>This version is vulnerable to clickjacking.</p>
+    <button onclick="alert('₹10,000 Transferred!')">Transfer ₹10,000</button>
+    
+    <div class="nav">
+      <a href="../attacker/index.html">Go to Attacker Page</a> |
+      <a href="../protected/index.html">Go to Protected Page</a>
+    </div>
+  </div>
+</body>
+</html>

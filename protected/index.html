@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Bank_Protected</title>
+  <link rel="stylesheet" href="../style.css">
+  <meta http-equiv="X-Frame-Options" content="DENY">
+  <meta http-equiv="Content-Security-Policy" content="frame-ancestors 'none';">
+  <style>
+    button:disabled {
+      background-color: grey;
+      cursor: not-allowed;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Bank (Protected Page)</h1>
+    <p>This version includes all defenses against clickjacking and logs detection attempts.</p>
+    <button id="transferBtn" onclick="alert('₹10,000 Transferred!')">Transfer ₹10,000</button>
+
+    <div class="nav">
+      <a href="../target/index.html">Go to Vulnerable Page</a> |
+      <a href="../attacker/index.html">Go to Attacker Page</a>
+    </div>
+  </div>
+
+  <script>
+    // Frame Busting Detection
+    if (window.top !== window.self) {
+      console.warn("[Clickjacking Detected] Protected page is being loaded inside a frame. Blocking...");
+      
+      // Simulate logging of clickjacking detection
+      // sendDetectionLog("Protected page loaded inside a frame");
+
+      // Alert user about clickjacking
+      alert("Clickjacking attempt detected! This page will reload.");
+
+      // Reload the top-level window to break out of the frame
+      document.body.innerHTML = '';
+      window.top.location = window.location;
+    }
+
+    // Intersection Observer for Button Visibility
+    const button = document.getElementById('transferBtn');
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.intersectionRatio < 1) {
+          button.disabled = true;
+          button.title = "Button is not fully visible. Click disabled for your safety.";
+
+          console.warn("[Clickjacking Warning] Button is not fully visible. Disabled interaction.");
+
+          // Simulate logging
+          // sendDetectionLog("Button visibility check failed (Intersection Observer)");
+        } else {
+          button.disabled = false;
+          button.title = "";
+        }
+      });
+    }, { threshold: 1.0 });
+
+    observer.observe(button);
+
+    // Function to simulate logging of clickjacking detection
+    function sendDetectionLog(message) {
+      console.log("Logging Clickjacking Detection:", message);
+
+    }
+  </script>
+</body>
+</html>
